@@ -11,6 +11,7 @@ Page({
       },
     ],
     index: 0,
+    index1: 1
   },
   //事件处理函数
   bindViewTap: function() {

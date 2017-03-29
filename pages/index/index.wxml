@@ -2,14 +2,26 @@
 <view class="container">
   <view class="section">
     <view class="section__title header">语言选择</view>
-    <text>{{sourceLan.index}}</text>
     <picker mode="selector" value="{{index}}" range="{{array}}" >
-    selector
     <view class="picker">
       {{array[index]}}
     </view>
-    
     </picker>
+    <picker mode="selector" value="{{index1}}" range="{{array}}">
+    <view class="picker">
+      {{array[index1]}}
+    </view>
+    </picker> 
+    <view class="source-text">
+      <textarea name="sourceText" />
+    </view>
+    <view class="translate-btn">
+      <button type="default">翻译</button>
+    </view>
+    <view class="target-text">
+      <textarea name="targetText" />
+    </view>
+      
   </view>
 
 </view>

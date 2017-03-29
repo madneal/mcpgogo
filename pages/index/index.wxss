@@ -10,3 +10,6 @@
   left: 0;
   top: 0;
 }
+.source-text, .target-text {
+  border: 1px solid #000;
+}
