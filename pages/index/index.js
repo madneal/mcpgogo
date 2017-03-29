@@ -18,7 +18,8 @@ Page({
     DisplayResult: "none",
     DisplayButton: "block",
     DisplayAudio: "none",
-    src: ""
+    src: "",
+    result: ''
   },
 
 
@@ -39,30 +40,25 @@ Page({
       wordTo: langTo[e.detail.value]
     })  
     if(this.data.wordsTotranslate != "") {
-      var target = "";
-        console.log(this.data.wordFrom);
-        console.log(this.data.wordTo);
-        console.log(this.data.wordsTotranslate);
-
+      var baseUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyAqyqMWOhUYGAkX1MR4lZp-SbbawoVPqjE&';
+      var source = 'source=' + this.data.wordFrom + '&';
+      var target = 'target=' + this.data.wordTo + '&';
+      var query = 'q=' + encodeURI(this.data.wordsTotranslate)
+      var url = baseUrl + screen + target + query;
+      console.log('url: ' + url);
         if(this.data.wordFrom != this.data.wordTo && this.data.wordsTotranslate != "") {
           this.setData({
             loading: true
           })
           console.log("send");
           wx.request({
-            url: 'https://www.gzm1997.cn', 
-            data: {
-              word: this.data.wordsTotranslate,
-              From: this.data.wordFrom,
-              To: this.data.wordTo
-            },
+            url: url,
             header: {
               'content-type': 'application/json'
             },
             success: function(res) {
               console.log(res.data);
-              target = res.data;
-
+              target = res.data.translations[0].translatedText;
           }
         })
         setTimeout(() => (function(str, that) {
@@ -121,18 +117,13 @@ Page({
 
   send: function(e) {
 
-   var target = "";
-    console.log(this.data.wordFrom);
-    console.log(this.data.wordTo);
-    console.log(this.data.wordsTotranslate);
-
-    if(this.data.wordFrom != this.data.wordTo && this.data.wordsTotranslate != "") {
-      this.setData({
-        loading: true
-      })
-      console.log("send");
-      var url = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyAqyqMWOhUYGAkX1MR4lZp-SbbawoVPqjE&source=en&target=zh&q=' + encodeURI(this.data.wordsTotranslate);
-      console.log('url ' + url);
+    var baseUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyAqyqMWOhUYGAkX1MR4lZp-SbbawoVPqjE&';
+    var source = 'source=' + this.data.wordFrom + '&';
+    var target = 'target=' + this.data.wordTo + '&';
+    var query = 'q=' + encodeURI(this.data.wordsTotranslate)
+    var url = baseUrl + source + target + query;
+    console.log('url: ' + url);
+    var that = this;
       wx.request({
         url: url,
         header: {
@@ -140,35 +131,9 @@ Page({
         },
         success: function(res) {
           console.log(res.data);
-          target = res.data;
-
+          that.setData({target: res.data.data.translations[0].translatedText, display: 'block'});
        }
      })
-     setTimeout(() => (function(str, that) {
-       //console.log("lala")
-      if(str != "") {
-       // console.log("yes");
-        that.setData({
-          loading: false,
-          DisplayResult: "block",
-          DisplayButton: "none",
-          resultRords: str,
-          src: "http://tts.baidu.com/text2audio?lan=" + that.data.wordTo + "&ie=UTF-8&text=" + str
-        })
-        if(that.data.wordTo == "zh" || that.data.wordTo == "en") {
-          that.setData({
-            DisplayAudio: "block"
-          })
-        }
-        else {
-          that.setData({
-            DisplayAudio: "none"
-          })         
-        }
-       } 
-     })(target, this), 1000)
-    }
-
   },
 
   onShareAppMessage: function () {
