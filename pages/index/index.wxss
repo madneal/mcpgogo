@@ -9,11 +9,18 @@
   font-weight: bold;
   color: gray;
 }
+.arrow {
+  width: 50px;
+  height: 28px;
+  float: right;
+}
 .source-lan {
-  width:33%;
+  width:100px;
+  float: left;
 }
 .target-lan {
-  width: 33%;
+  width: 200px;
+  
   float:left;
 }
 .exchange-mask {

@@ -28,58 +28,7 @@ Page({
 
 
   changeto: function(e) {
-    console.log(langTo[e.detail.value]);
-    this.setData({
-      indexTo: e.detail.value,
-      wordTo: langTo[e.detail.value]
-    })  
-    if(this.data.wordsTotranslate != "") {
-      var baseUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyAqyqMWOhUYGAkX1MR4lZp-SbbawoVPqjE&';
-      var source = 'source=' + this.data.wordFrom + '&';
-      var target = 'target=' + this.data.wordTo + '&';
-      var query = 'q=' + encodeURI(this.data.wordsTotranslate)
-      var url = baseUrl + screen + target + query;
-      console.log('url: ' + url);
-        if(this.data.wordFrom != this.data.wordTo && this.data.wordsTotranslate != "") {
-          this.setData({
-            loading: true
-          })
-          console.log("send");
-          wx.request({
-            url: url,
-            header: {
-              'content-type': 'application/json'
-            },
-            success: function(res) {
-              console.log(res.data);
-              target = res.data.translations[0].translatedText;
-          }
-        })
-        setTimeout(() => (function(str, that) {
-          //console.log("lala")
-          if(str != "") {
-          // console.log("yes");
-            that.setData({
-              loading: false,
-              DisplayResult: "block",
-              DisplayButton: "none",
-              resultRords: str,
-              src: "http://tts.baidu.com/text2audio?lan=" + that.data.wordTo + "&ie=UTF-8&text=" + str
-            })
-            if(that.data.wordTo == "zh" || that.data.wordTo == "en") {
-              that.setData({
-                DisplayAudio: "block"
-              })
-            }
-            else {
-              that.setData({
-                DisplayAudio: "none"
-              })         
-            }
-          } 
-        })(target, this), 1000)
-        }
-        }
+
   },
 
   translate: function(e) {

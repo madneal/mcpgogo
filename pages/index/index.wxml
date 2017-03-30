@@ -4,12 +4,13 @@
 </view>
 
 <view class="lan-setting">
+  
   <picker class="source-lan" bindchange="changefrom" value="{{indexFrom}}" range="{{arrayFrom}}">
      {{arrayFrom[indexFrom]}}
      <label class="arrow-down"></label>
   </picker>
-
-  <image src="../img/arrow2.jpg" style="width:44px;height:25px;"></image>
+  <image src="../img/arrow2.jpg" class="arrow"></image>
+  
 
   <picker class="target-lan" bindchange="changeto" value="{{indexTo}}" range="{{arrayTo}}">
      {{arrayTo[indexTo]}}
