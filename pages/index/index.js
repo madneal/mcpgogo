@@ -45,8 +45,8 @@ Page({
           'content-type': 'application/json'
         },
         success: function(res) {
-          console.log(res.data);
-          that.setData({targetText: res.data.data.translations[0].translatedText});
+          var translatedText = res.data.data.translations[0].translatedText;
+          that.setData({targetText: translatedText});
        }
      })
   },
