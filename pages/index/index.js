@@ -84,9 +84,9 @@ Page({
 
   translate: function(e) {
     var baseUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyAqyqMWOhUYGAkX1MR4lZp-SbbawoVPqjE&';
-    var source = 'source=' + this.data.wordFrom + '&';
-    var target = 'target=' + this.data.wordTo + '&';
-    var query = 'q=' + encodeURI(this.data.wordsTotranslate)
+    var source = 'source=' + this.data.sourceLan + '&';
+    var target = 'target=' + this.data.targetLan + '&';
+    var query = 'q=' + encodeURI(this.data.sourceText)
     var url = baseUrl + source + target + query;
     console.log('url: ' + url);
     var that = this;
@@ -97,7 +97,7 @@ Page({
         },
         success: function(res) {
           console.log(res.data);
-          that.setData({target: res.data.data.translations[0].translatedText, display: 'block'});
+          that.setData({targetText: res.data.data.translations[0].translatedText});
        }
      })
   },
