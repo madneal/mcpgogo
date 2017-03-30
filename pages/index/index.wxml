@@ -21,19 +21,18 @@
 <view class="translate">
 
   <view class="inputLine">
-
-    <textarea value="{{words}}" placeholder="输入你想翻译的文字" bindinput="showClear" auto-focus/>
+    <textarea value="{{sourceText}}" placeholder="输入你想翻译的文字" bindinput="showClear" auto-focus/>
     <icon bindtap="clearWords" type="clear" size="{{size}}" />
   </view>
-
+  <button class="translate-btn" bindtap="send" type="default" size="34" loading="{{loading}}" bindtap="send"> 翻译 </button>
   <view id="show" >
-    <textarea id="showResult" value="{{result}}" auto-focus/>
+    <textarea id="showResult" value="{{targetText}}" auto-focus/>
   </view>
   
   <!--<audio style="display:{{DisplayAudio}};" name="语音" author="翻译助手" src="{{src}}" controls></audio>-->
 
 
-  <button style="display:{{DisplayButton}};" bindtap="send" type="default" size="34" loading="{{loading}}" bindtap="send"> 翻译 </button>
+  
 
 </view>
 

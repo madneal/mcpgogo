@@ -10,16 +10,10 @@ Page({
      '泰语', '文言文', '西班牙语', '希腊语', '匈牙利语', '意大利语', '粤语', '中文繁体', '越南语'],
     indexFrom: 1,
     indexTo: 0,
-    size: 0,
-    words: "",
-    wordsTotranslate: "",
-    wordFrom: "zh",
-    wordTo: "en",
-    DisplayResult: "none",
-    DisplayButton: "block",
-    DisplayAudio: "none",
-    src: "",
-    result: ''
+    sourceLan: "zh",
+    targetLan: "en",
+    sourceText: '',
+    targetText: ''
   },
 
 
@@ -88,35 +82,7 @@ Page({
         }
   },
 
-
-  showClear: function(e) {
-    console.log("show clean");
-    this.setData({
-      size: 23,
-      wordsTotranslate: e.detail.value,
-      DisplayResult: "none",
-      DisplayButton: "block",
-      DisplayAudio: "none"
-
-    })
-  },
-
-
-  clearWords: function() {
-    console.log("clean");
-    this.setData({
-      words: "",
-      wordsTotranslate: "",
-      size: 0,
-      DisplayResult: "none",
-      DisplayButton: "block",
-      DisplayAudio: "none",
-      loading: false
-    })
-  },
-
-  send: function(e) {
-
+  translate: function(e) {
     var baseUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyAqyqMWOhUYGAkX1MR4lZp-SbbawoVPqjE&';
     var source = 'source=' + this.data.wordFrom + '&';
     var target = 'target=' + this.data.wordTo + '&';
