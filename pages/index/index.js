@@ -31,6 +31,10 @@ Page({
 
   },
 
+  setSourceText: function(e) {
+    this.setData({sourceText: e.detail.value});
+  },
+
   translate: function(e) {
     var baseUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyAqyqMWOhUYGAkX1MR4lZp-SbbawoVPqjE&';
     var source = 'source=' + this.data.sourceLan + '&';
