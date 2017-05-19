@@ -3,24 +3,18 @@
   <label>我的翻译</label>
 </view>
 
-<view class="lan-setting">
-  
+<view class="lan-setting"> 
   <picker class="source-lan" bindchange="changefrom" value="{{indexFrom}}" range="{{arrayFrom}}">
      {{arrayFrom[indexFrom]}}
      <label class="arrow-down"></label>
   </picker>
-  <image src="../img/arrow2.jpg" class="arrow"></image>
-  
-
   <picker class="target-lan" bindchange="changeto" value="{{indexTo}}" range="{{arrayTo}}">
      {{arrayTo[indexTo]}}
      <label class="arrow-down"></label>
   </picker>
 </view>
 
-  
 <view class="translate">
-
   <view class="inputLine">
     <textarea class="source-input" value="{{sourceText}}" placeholder="输入你想翻译的文字" bindinput="setSourceText" auto-focus/>
     <icon bindtap="clearWords" type="clear" size="{{size}}" />
@@ -29,12 +23,6 @@
   <view id="show" >
     <textarea id="showResult" value="{{targetText}}" auto-focus/>
   </view>
-  
-  <!--<audio style="display:{{DisplayAudio}};" name="语音" author="翻译助手" src="{{src}}" controls></audio>-->
-
-
-  
-
 </view>
 
 

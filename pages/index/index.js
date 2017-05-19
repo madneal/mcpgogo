@@ -19,7 +19,6 @@ Page({
 
   changefrom: function(e) {
     console.log(langFrom[e.detail.value]);
-    //console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       indexFrom: e.detail.value,
       wordFrom: langFrom[e.detail.value]
@@ -61,12 +60,5 @@ Page({
       desc: '打开微信轻松翻译',
       path: '/pages/index/index'
     }
-  },
-
-
-
-
-
-
-
+  }
 })
