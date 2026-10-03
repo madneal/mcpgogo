@@ -3,7 +3,7 @@ substitutions:
 
 steps:
   - id: go-sast
-    name: asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/go-sast:153d312
+    name: asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/go-sast:153d312
     args:
       - --path
       - /workspace
@@ -49,7 +49,7 @@ steps:
     args:
       - build
       - -t
-      - asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
+      - asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/mcpgogo:${_TAG}
       - .
 
   - id: container-push
@@ -58,7 +58,7 @@ steps:
       - container-build
     args:
       - push
-      - asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
+      - asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/mcpgogo:${_TAG}
 
   - id: deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
@@ -69,7 +69,7 @@ steps:
       - run
       - deploy
       - mcpgogo
-      - --image=asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
+      - --image=asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/mcpgogo:${_TAG}
       - --region=asia-southeast1
       - --platform=managed
       - --port=8080
@@ -81,4 +81,4 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 images:
-  - asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
+  - asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/mcpgogo:${_TAG}
