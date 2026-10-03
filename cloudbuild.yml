@@ -9,7 +9,7 @@ steps:
         git -C /workspace/go-sast checkout 153d312
 
   - id: go-sast
-    name: golang:1.24-bookworm
+    name: golang:1.25-bookworm
     waitFor:
       - fetch-go-sast
     entrypoint: bash
@@ -24,7 +24,7 @@ steps:
         done < <(find /workspace -name '*.go' -not -path '/workspace/.git/*' -print0)
 
   - id: gofmt
-    name: golang:1.24-bookworm
+    name: golang:1.25-bookworm
     waitFor:
       - go-sast
     entrypoint: bash
@@ -35,7 +35,7 @@ steps:
         test -z "$files"
 
   - id: test
-    name: golang:1.24-bookworm
+    name: golang:1.25-bookworm
     waitFor:
       - gofmt
     args:
@@ -46,7 +46,7 @@ steps:
         test -z "$packages" || go test $packages
 
   - id: build
-    name: golang:1.24-bookworm
+    name: golang:1.25-bookworm
     waitFor:
       - test
     args:
