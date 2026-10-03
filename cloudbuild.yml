@@ -18,7 +18,9 @@ steps:
       - |
         go build -o /workspace/.go-sast /workspace/go-sast
         rm -rf /workspace/go-sast
-        /workspace/.go-sast --path /workspace --fail-on-findings
+        while IFS= read -r -d '' file; do
+          /workspace/.go-sast --path "$file" --fail-on-findings
+        done < <(find /workspace -name '*.go' -not -path '/workspace/.git/*' -print0)
 
   - id: gofmt
     name: golang:1.24-bookworm
