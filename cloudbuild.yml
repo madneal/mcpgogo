@@ -60,6 +60,23 @@ steps:
       - push
       - asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
 
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    waitFor:
+      - container-push
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - mcpgogo
+      - --image=asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
+      - --region=asia-southeast1
+      - --platform=managed
+      - --port=8080
+      - --service-account=mcpgogo-cloud-build@project-679fd931-e097-4add-a8e.iam.gserviceaccount.com
+      - --no-allow-unauthenticated
+      - --quiet
+
 options:
   logging: CLOUD_LOGGING_ONLY
 
