@@ -15,7 +15,10 @@ steps:
     entrypoint: bash
     args:
       - -ceu
-      - go run /workspace/go-sast --path /workspace --fail-on-findings
+      - |
+        go build -o /workspace/.go-sast /workspace/go-sast
+        rm -rf /workspace/go-sast
+        /workspace/.go-sast --path /workspace --fail-on-findings
 
   - id: gofmt
     name: golang:1.24-bookworm
