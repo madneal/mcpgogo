@@ -11,8 +11,6 @@ steps:
 
   - id: gofmt
     name: golang:1.25-bookworm
-    waitFor:
-      - go-sast
     entrypoint: bash
     args:
       - -ceu
@@ -22,8 +20,6 @@ steps:
 
   - id: test
     name: golang:1.25-bookworm
-    waitFor:
-      - gofmt
     args:
       - bash
       - -ceu
@@ -33,8 +29,6 @@ steps:
 
   - id: build
     name: golang:1.25-bookworm
-    waitFor:
-      - test
     args:
       - bash
       - -ceu
@@ -44,8 +38,6 @@ steps:
 
   - id: container-build
     name: gcr.io/cloud-builders/docker
-    waitFor:
-      - build
     args:
       - build
       - -t
@@ -54,8 +46,6 @@ steps:
 
   - id: container-push
     name: gcr.io/cloud-builders/docker
-    waitFor:
-      - container-build
     args:
       - push
       - asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/mcpgogo:${_TAG}
@@ -71,11 +61,8 @@ steps:
       - mcpgogo
       - --image=asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/mcpgogo:${_TAG}
       - --region=asia-southeast1
-      - --platform=managed
-      - --port=8080
       - --service-account=mcpgogo-cloud-build@project-679fd931-e097-4add-a8e.iam.gserviceaccount.com
       - --no-allow-unauthenticated
-      - --quiet
 
 options:
   logging: CLOUD_LOGGING_ONLY
