@@ -1,7 +1,4 @@
 substitutions:
-  _LOCATION: asia-southeast1
-  _REPOSITORY: security-gate
-  _IMAGE: ${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/mcpgogo
   _TAG: latest
 
 steps:
@@ -52,7 +49,7 @@ steps:
     args:
       - build
       - -t
-      - ${_IMAGE}:${_TAG}
+      - asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
       - .
 
   - id: container-push
@@ -61,10 +58,10 @@ steps:
       - container-build
     args:
       - push
-      - ${_IMAGE}:${_TAG}
+      - asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
 
 options:
   logging: CLOUD_LOGGING_ONLY
 
 images:
-  - ${_IMAGE}:${_TAG}
+  - asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/mcpgogo:${_TAG}
