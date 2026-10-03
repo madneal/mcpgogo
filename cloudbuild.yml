@@ -61,7 +61,6 @@ steps:
       - mcpgogo
       - --image=asia-southeast1-docker.pkg.dev/${PROJECT_ID}/security-gate/mcpgogo:${_TAG}
       - --region=asia-southeast1
-      - --service-account=mcpgogo-cloud-build@project-679fd931-e097-4add-a8e.iam.gserviceaccount.com
       - --no-allow-unauthenticated
 
 options:
