@@ -1,14 +1,21 @@
 steps:
-  - id: go-sast
-    name: golang:1.24-bookworm
+  - id: fetch-go-sast
+    name: gcr.io/cloud-builders/git
     entrypoint: bash
     args:
       - -ceu
       - |
-        git clone https://github.com/madneal/go-sast.git /tmp/go-sast
-        cd /tmp/go-sast
-        git checkout 153d312
-        go run . --path /workspace --fail-on-findings
+        git clone https://github.com/madneal/go-sast.git /workspace/go-sast
+        git -C /workspace/go-sast checkout 153d312
+
+  - id: go-sast
+    name: golang:1.24-bookworm
+    waitFor:
+      - fetch-go-sast
+    entrypoint: bash
+    args:
+      - -ceu
+      - go run /workspace/go-sast --path /workspace --fail-on-findings
 
   - id: gofmt
     name: golang:1.24-bookworm
