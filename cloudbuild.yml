@@ -1,0 +1,34 @@
+steps:
+  - id: gofmt
+    name: golang:1.24-bookworm
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        files=$(find . -name '*.go' -not -path './vendor/*' -print0 | xargs -0 -r gofmt -l)
+        test -z "$files"
+
+  - id: test
+    name: golang:1.24-bookworm
+    waitFor:
+      - gofmt
+    args:
+      - bash
+      - -ceu
+      - |
+        packages=$(go list ./... 2>/dev/null || true)
+        test -z "$packages" || go test $packages
+
+  - id: build
+    name: golang:1.24-bookworm
+    waitFor:
+      - test
+    args:
+      - bash
+      - -ceu
+      - |
+        packages=$(go list ./... 2>/dev/null || true)
+        test -z "$packages" || go build $packages
+
+options:
+  logging: CLOUD_LOGGING_ONLY
