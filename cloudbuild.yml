@@ -1,6 +1,19 @@
 steps:
+  - id: go-sast
+    name: golang:1.24-bookworm
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        git clone https://github.com/madneal/go-sast.git /tmp/go-sast
+        cd /tmp/go-sast
+        git checkout 153d312
+        go run . --path /workspace --fail-on-findings
+
   - id: gofmt
     name: golang:1.24-bookworm
+    waitFor:
+      - go-sast
     entrypoint: bash
     args:
       - -ceu
