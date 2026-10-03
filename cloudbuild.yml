@@ -1,3 +1,9 @@
+substitutions:
+  _LOCATION: asia-southeast1
+  _REPOSITORY: security-gate
+  _IMAGE: ${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/mcpgogo
+  _TAG: latest
+
 steps:
   - id: go-sast
     name: asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/go-sast:153d312
@@ -39,5 +45,26 @@ steps:
         packages=$(go list ./... 2>/dev/null || true)
         test -z "$packages" || go build $packages
 
+  - id: container-build
+    name: gcr.io/cloud-builders/docker
+    waitFor:
+      - build
+    args:
+      - build
+      - -t
+      - ${_IMAGE}:${_TAG}
+      - .
+
+  - id: container-push
+    name: gcr.io/cloud-builders/docker
+    waitFor:
+      - container-build
+    args:
+      - push
+      - ${_IMAGE}:${_TAG}
+
 options:
   logging: CLOUD_LOGGING_ONLY
+
+images:
+  - ${_IMAGE}:${_TAG}
