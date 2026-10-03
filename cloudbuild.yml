@@ -16,7 +16,8 @@ steps:
     args:
       - -ceu
       - |
-        go build -o /workspace/.go-sast /workspace/go-sast
+        cd /workspace/go-sast
+        go build -o /workspace/.go-sast .
         rm -rf /workspace/go-sast
         while IFS= read -r -d '' file; do
           /workspace/.go-sast --path "$file" --fail-on-findings
