@@ -1,27 +1,10 @@
 steps:
-  - id: fetch-go-sast
-    name: gcr.io/cloud-builders/git
-    entrypoint: bash
-    args:
-      - -ceu
-      - |
-        git clone https://github.com/madneal/go-sast.git /workspace/go-sast
-        git -C /workspace/go-sast checkout 153d312
-
   - id: go-sast
-    name: golang:1.25-bookworm
-    waitFor:
-      - fetch-go-sast
-    entrypoint: bash
+    name: asia-southeast1-docker.pkg.dev/project-679fd931-e097-4add-a8e/security-gate/go-sast:153d312
     args:
-      - -ceu
-      - |
-        cd /workspace/go-sast
-        go build -o /workspace/.go-sast .
-        rm -rf /workspace/go-sast
-        while IFS= read -r -d '' file; do
-          /workspace/.go-sast --path "$file" --fail-on-findings
-        done < <(find /workspace -name '*.go' -not -path '/workspace/.git/*' -print0)
+      - --path
+      - /workspace
+      - --fail-on-findings
 
   - id: gofmt
     name: golang:1.25-bookworm
